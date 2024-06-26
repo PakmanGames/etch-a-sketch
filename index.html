@@ -6,15 +6,17 @@
         <link rel="stylesheet" href="./style.css">
         <title>Etch-a-Sketch</title>
     </head>
-    <body class="vertical container">
+    <body class="container">
         <div class="title">Etch-a-Sketch</div>
 
         <div class="horizontal container">
             <div class="container">
                 <div class="horizontal container">
-                    <input type="number" class="input">
-                    <div class="input-text"></div>
-                    <button>Set Size</button>
+                    <div class="text horizontal container">
+                        <input type="number" name="gridSize" min="2" max="100" class="input">
+                        <div class="input-text"></div>
+                    </div>
+                    <!-- <button class="set-size">Set Size</button> -->
                 </div>
                 <div class="grid"></div>
             </div>

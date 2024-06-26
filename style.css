@@ -1,9 +1,17 @@
-body {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    min-height: 100vh;
+* {
     gap: 0px;
     padding: 0px;
     margin: 0px;
+}
+
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 80px;
+    font-weight: bolder;
 }
 
 .container {
@@ -14,17 +22,24 @@ body {
     flex: 1;
     flex-wrap: wrap;
 
-    gap: 30px;
-    padding: 20px;
+    gap: 20px 50px;
 }
 
 .horizontal {
     flex-direction: row;
 }
 
+.text.horizontal.container {
+    gap: 5px;
+}
+
+.input {
+    width: 3em;
+}
+
 .grid {
-    height: 700px;
-    width: 700px;
+    height: 600px;
+    width: 600px;
     border: 5px solid black;
 
     display:flex;
