@@ -1,0 +1,36 @@
+body {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    gap: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    flex-wrap: wrap;
+
+    gap: 30px;
+    padding: 20px;
+}
+
+.horizontal {
+    flex-direction: row;
+}
+
+.grid {
+    height: 700px;
+    width: 700px;
+    border: 5px solid black;
+
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.tile {
+    border: 1px solid black;
+}
