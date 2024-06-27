@@ -38,6 +38,10 @@ const updateInput = function() {
 input.addEventListener("keyup", updateInput);
 input.addEventListener("input", updateInput);
 
+function getColors() {
+    return `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`;
+}
+
 function setGrid(size) {
     grid.replaceChildren();
     for (let i = 0; i < size*size; i++) {
@@ -45,8 +49,10 @@ function setGrid(size) {
         tile.style.height = `${600 / size - 2}px`
         tile.style.width = `${600 / size - 2}px`
         tile.className = "tile";
+
         tile.addEventListener("mouseover", () => {
-            const opacity = tile.style.backgroundColor.substring(14, tile.style.backgroundColor.length - 1);
+            const opacity = tile.style.backgroundColor.slice(-4).substring(0,3);
+
             if (tool === "greyscale") {
                 if (opacity != "1") {
                     tile.style.backgroundColor = `rgba(0, 0, 0, ${Number(opacity) + 0.1})`;
@@ -54,7 +60,9 @@ function setGrid(size) {
             } else if (tool === "eraser") {
                 tile.style.backgroundColor = `rgba(0, 0, 0, ${0})`;
             } else if (tool === "rgb") {
-                // placeholder
+                if (opacity != "1") {
+                    tile.style.backgroundColor = `rgba(${getColors()}, ${Number(opacity) + 0.1})`;
+                }
             } else if (tool === "pastel") {
                 // placeholder
             }
@@ -73,3 +81,5 @@ clear.addEventListener("click", () => {
 eraser.addEventListener("click", () => tool = "eraser");
 
 greyscale.addEventListener("click", () => tool = "greyscale");
+
+rgb.addEventListener("click", () => tool = "rgb");
