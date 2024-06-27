@@ -1,6 +1,7 @@
 const grid = document.querySelector(".grid");
 const input = document.querySelector(".input");
 const inputText = document.querySelector(".input-text");
+
 input.value = 16;
 setGrid(input.value);
 inputText.textContent = `x ${input.value}`;
@@ -12,7 +13,7 @@ inputText.textContent = `x ${input.value}`;
 //     }
 // });
 
-const updateInput = function () {
+const updateInput = function() {
     if (!input.validity.valid) {
         if (input.value > 100) {
             input.value = 100;
@@ -25,7 +26,6 @@ const updateInput = function () {
 }
 
 input.addEventListener("keyup", updateInput);
-
 input.addEventListener("input", updateInput);
 
 function setGrid(size) {
@@ -36,8 +36,11 @@ function setGrid(size) {
         tile.style.width = `${600 / size - 2}px`
         tile.className = "tile";
         tile.addEventListener("mouseover", () => {
-            tile.style.backgroundColor = "black";
-        })
+            const opacity = tile.style.backgroundColor.substring(14, tile.style.backgroundColor.length - 1);
+            if (opacity != "1") {
+                tile.style.backgroundColor = `rgba(0, 0, 0, ${Number(opacity) + 0.1})`;
+            }
+        });
 
         grid.appendChild(tile);
     }
