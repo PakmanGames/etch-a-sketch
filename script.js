@@ -103,7 +103,7 @@ function setGrid(size) {
                 }
             } else if (tool === "eraser") {
                 // Change tile to white and reset class names
-                tile.style.backgroundColor = `rgba(255, 255, 255, ${0})`;
+                tile.style.backgroundColor = `rgba(255, 255, 255, ${0.1})`;
                 tile.className = "tile";
             }
 
