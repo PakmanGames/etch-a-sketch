@@ -68,16 +68,12 @@ function setGrid(size) {
                     tile.classList.remove("rgb");
                     tile.style.backgroundColor = `rgba(0, 0, 0, ${Number(opacity) + 0.1})`;
                     tile.classList.add("greyscale");
-
-                    if (opacity == "0.9") {
-                        tile.classList.add("colored");
-                    }
                 }
             } else if (tool === "eraser") {
                 tile.style.backgroundColor = `rgba(255, 255, 255, ${0})`;
                 tile.className = "tile";
             } else if (tool === "rgb") {
-                if (opacity != "1" || !tile.classList.contains("rgb")) {
+                if (opacity != "1" && !tile.classList.contains("rgb") || bgColorCode.includes("rgba(")) {
                     if (bgColorCode.includes("rgb(") && !tile.classList.contains("rgb")) {
                         tile.style.backgroundColor = `rgba(${getRandomColors()}, ${0.1})`;
                         tile.classList.remove("colored");
@@ -85,11 +81,10 @@ function setGrid(size) {
                     tile.classList.remove("greyscale");
                     tile.style.backgroundColor = `rgba(${getRandomColors()}, ${Number(opacity) + 0.1})`;
                     tile.classList.add("rgb");
-
-                    if (opacity == "0.9") {
-                        tile.classList.add("colored");
-                    }
                 }
+            }
+            if (opacity == "0.9") {
+                tile.classList.add("colored");
             }
         });
 
