@@ -8,7 +8,8 @@ const clear = document.querySelector(".clear");
 const eraser = document.querySelector(".eraser");
 const greyscale = document.querySelector(".greyscale");
 const rgb = document.querySelector(".rgb");
-const pastel = document.querySelector(".pastel");
+const custom = document.querySelector(".custom");
+const customSelector = document.querySelector(".custom-selector");
 
 // Default values
 input.value = 16;
@@ -33,8 +34,20 @@ const updateInput = function() {
 input.addEventListener("keyup", updateInput);
 input.addEventListener("input", updateInput);
 
+// Create random colours for rgb tool
 function getRandomColors() {
     return `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`;
+}
+
+// Convert hex value from input to rgb values
+function hexToRgb(hex) {
+    hex = hex.replace('#', '');
+
+    // Convert hex to RGB
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `${r}, ${g}, ${b}`;
 }
 
 // Sets size of grid and creates divs representing the tiles
@@ -57,23 +70,36 @@ function setGrid(size) {
             // Different behaviour based on selected tool
             if (tool === "greyscale") {
                 if (opacity != "1" || !tile.classList.contains("greyscale")) {
-                    // If tile is fully coloured but is rgb
+                    // If tile is fully coloured but is rgb or custom
                     if (bgColorCode.includes("rgb(") && !tile.classList.contains("greyscale")) {
-                        tile.style.backgroundColor = `rgba(0, 0, 0, ${1})`;
+                        tile.style.backgroundColor = `rgb(0, 0, 0)`;
                     } 
                     tile.classList.remove("rgb");
+                    tile.classList.remove("custom");
                     tile.style.backgroundColor = `rgba(0, 0, 0, ${Number(opacity) + 0.1})`;
                     tile.classList.add("greyscale");
                 }
             } else if (tool === "rgb") {
                 if (opacity != "1" && !tile.classList.contains("rgb") || bgColorCode.includes("rgba(")) {
-                    // If tile is fully coloured but is grey
+                    // If tile is fully coloured but is grey or custom
                     if (bgColorCode.includes("rgb(") && !tile.classList.contains("rgb")) {
                         tile.style.backgroundColor = `rgb(${getRandomColors()})`;
                     }
                     tile.classList.remove("greyscale");
+                    tile.classList.remove("custom");
                     tile.style.backgroundColor = `rgba(${getRandomColors()}, ${Number(opacity) + 0.1})`;
                     tile.classList.add("rgb");
+                }
+            } else if (tool === "custom") {
+                if (opacity != "1" || !tile.classList.contains("custom") || bgColorCode.includes("rgba(")) {
+                    // If tile is fully coloured but is grey or rgb
+                    if (bgColorCode.includes("rgb(") && !tile.classList.contains("custom")) {
+                        tile.style.backgroundColor = `rgb(${hexToRgb(customSelector.value)})`;
+                    }
+                    tile.classList.remove("greyscale");
+                    tile.classList.remove("rgb");
+                    tile.style.backgroundColor = `rgba(${hexToRgb(customSelector.value)}, ${Number(opacity) + 0.1})`;
+                    tile.classList.add("custom");
                 }
             } else if (tool === "eraser") {
                 // Change tile to white and reset class names
@@ -97,7 +123,16 @@ clear.addEventListener("click", () => {
     }
 });
 
+const getCustomColor = function () {
+    return custom.value;
+}
+
+// Event listeners when user changes custom colour
+customSelector.addEventListener("input", getCustomColor, false);
+customSelector.addEventListener("change", getCustomColor, false);
+
 // Event listeners for each of the tools
 eraser.addEventListener("click", () => tool = "eraser");
 greyscale.addEventListener("click", () => tool = "greyscale");
 rgb.addEventListener("click", () => tool = "rgb");
+custom.addEventListener("click", () => tool = "custom");
