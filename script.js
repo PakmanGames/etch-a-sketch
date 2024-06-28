@@ -38,7 +38,7 @@ const updateInput = function() {
 input.addEventListener("keyup", updateInput);
 input.addEventListener("input", updateInput);
 
-function getColors() {
+function getRandomColors() {
     return `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`;
 }
 
@@ -52,19 +52,44 @@ function setGrid(size) {
 
         tile.addEventListener("mouseover", () => {
             const opacity = tile.style.backgroundColor.slice(-4).substring(0,3);
+            const bgColorCode = tile.style.backgroundColor;
+
+            const color = tile.style.backgroundColor.substring(5, tile.style.backgroundColor.length - 6);
+            // console.log(color);
 
             if (tool === "greyscale") {
-                if (opacity != "1") {
+                if (opacity != "1" || !tile.classList.contains("greyscale")) {
+                    if (bgColorCode.includes("rgb(") && !tile.classList.contains("greyscale")) {
+                        tile.style.backgroundColor = `rgba(0, 0, 0, ${0.1})`;
+                        tile.classList.remove("colored");
+                    } else if (!tile.classList.contains("greyscale")) {
+                        tile.style.backgroundColor = `rgba(0, 0, 0, ${0.1})`;
+                    }
+                    tile.classList.remove("rgb");
                     tile.style.backgroundColor = `rgba(0, 0, 0, ${Number(opacity) + 0.1})`;
+                    tile.classList.add("greyscale");
+
+                    if (opacity == "0.9") {
+                        tile.classList.add("colored");
+                    }
                 }
             } else if (tool === "eraser") {
-                tile.style.backgroundColor = `rgba(0, 0, 0, ${0})`;
+                tile.style.backgroundColor = `rgba(255, 255, 255, ${0})`;
+                tile.className = "tile";
             } else if (tool === "rgb") {
-                if (opacity != "1") {
-                    tile.style.backgroundColor = `rgba(${getColors()}, ${Number(opacity) + 0.1})`;
+                if (opacity != "1" || !tile.classList.contains("rgb")) {
+                    if (bgColorCode.includes("rgb(") && !tile.classList.contains("rgb")) {
+                        tile.style.backgroundColor = `rgba(${getRandomColors()}, ${0.1})`;
+                        tile.classList.remove("colored");
+                    }
+                    tile.classList.remove("greyscale");
+                    tile.style.backgroundColor = `rgba(${getRandomColors()}, ${Number(opacity) + 0.1})`;
+                    tile.classList.add("rgb");
+
+                    if (opacity == "0.9") {
+                        tile.classList.add("colored");
+                    }
                 }
-            } else if (tool === "pastel") {
-                // placeholder
             }
         });
 
