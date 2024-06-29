@@ -1,5 +1,5 @@
 // Grid and Elements for changing size
-const grid = document.querySelector(".grid");
+const grid = document.querySelector("#grid");
 const input = document.querySelector(".input");
 const inputText = document.querySelector(".input-text");
 
@@ -124,6 +124,7 @@ clear.addEventListener("click", () => {
 });
 
 const getCustomColor = function () {
+    customSelector.style.backgroundColor = customSelector.value;
     return custom.value;
 }
 
@@ -132,7 +133,27 @@ customSelector.addEventListener("input", getCustomColor, false);
 customSelector.addEventListener("change", getCustomColor, false);
 
 // Event listeners for each of the tools
-eraser.addEventListener("click", () => tool = "eraser");
-greyscale.addEventListener("click", () => tool = "greyscale");
-rgb.addEventListener("click", () => tool = "rgb");
-custom.addEventListener("click", () => tool = "custom");
+eraser.addEventListener("click", () => {
+    const currentTool = document.querySelector(".selected");
+    currentTool.classList.remove("selected");
+    eraser.classList.add("selected");
+    tool = "eraser";
+});
+greyscale.addEventListener("click", () => {
+    const currentTool = document.querySelector(".selected");
+    currentTool.classList.remove("selected");
+    greyscale.classList.add("selected");
+    tool = "greyscale";
+});
+rgb.addEventListener("click", () => {
+    const currentTool = document.querySelector(".selected");
+    currentTool.classList.remove("selected");
+    rgb.classList.add("selected");
+    tool = "rgb";
+});
+custom.addEventListener("click", () => {
+    const currentTool = document.querySelector(".selected");
+    currentTool.classList.remove("selected");
+    custom.classList.add("selected");
+    tool = "custom";
+});

@@ -7,27 +7,32 @@
         <title>Etch-a-Sketch</title>
     </head>
     <body class="container">
-        <div class="title">Etch-a-Sketch</div>
-
         <div class="horizontal container">
             <div class="container">
+                <div class="title">Etch-a-Sketch</div>
                 <div class="horizontal container">
                     <div class="text horizontal container">
                         <input type="number" name="gridSize" min="2" max="100" class="input">
                         <div class="input-text"></div>
                     </div>
                 </div>
-                <div class="grid"></div>
+                <div id="grid"></div>
+                <div class="horizontal container subtitle" id="img-container">
+                    <img src="./images/pakmangames.png" alt="PakmanGames">
+                    <a href="https://github.com/PakmanGames/etch-a-sketch" target="_blank">PakmanGames</a>
+                    <div>2024</div>
+                </div>
             </div>
+
             <div class="button-box container">
                 <button class="clear">Clear</button>
-                <button class="tool eraser">Eraser</button>
+                <button class="eraser">Eraser</button>
 
-                <div>Brushes:</div>
-                <button class="tool greyscale">Greyscale</button>
-                <button class="tool rgb">RGB</button>
+                <div class="subtitle">Brushes:</div>
+                <button class="greyscale selected">Greyscale</button>
+                <button class="rgb">RGB</button>
                 <div class="custom-color">
-                    <button class="tool custom">Custom</button>
+                    <button class="custom">Custom</button>
                     <input type="color" value="#7A4FE0" class="custom-selector">
                 </div>
             </div>
