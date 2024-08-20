@@ -71,6 +71,9 @@ button {
 /* Hover and selected effects on buttons*/
 button:hover {
     background-color: rgb(160, 160, 160);
+    transition: background-color 0.5s ease-in-out;
+    transition: box-shadow 0.5s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 button.selected {
